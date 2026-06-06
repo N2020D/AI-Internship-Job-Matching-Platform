@@ -1,0 +1,29 @@
+Authentication Module
+
+The Authentication Module manages user registration, login, and secure access to the system. 
+Users including students, recruiters, and administrators can authenticate using email and password credentials. 
+Passwords are encrypted using bcrypt, and JWT tokens are used for secure session management.
+
+Authentication Module
+
+Purpose - Manage user registration, login, and secure authentication.
+
+	Users
+		Student
+		Recruiter
+		Admin
+	Features
+		Register
+		Login
+		JWT Authentication
+		Password Encryption
+		Role-based Access
+	Database Collection
+		users
+
+	APIs
+		POST /register
+		POST /login
+	Frontend Pages
+		Login Page
+		Register Page

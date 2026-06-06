@@ -1,0 +1,54 @@
+2️⃣ RECRUITER MODULE
+PURPOSE - This module allows companies/recruiters to manage internship opportunities and candidates.
+
+USERS
+    Recruiters
+    Companies
+FEATURES
+    Recruiter Registration
+    Recruiters create company accounts.
+    Company Profile Management
+        Recruiters manage:
+            company details
+            company logo
+            company description
+    Post Internship/Job
+        Recruiters can:
+            create job posts
+            define required skills
+            define qualifications
+    Manage Job Posts
+        Recruiters can:
+            edit jobs
+            delete jobs
+            close jobs
+    View Applicants
+        Recruiters can:
+            view applications
+            review candidate profiles
+    Shortlist Candidates
+        Recruiters can shortlist suitable students.
+
+DATABASE COLLECTIONS
+    companies
+    jobs
+    applications
+FRONTEND PAGES
+    RecruiterDashboard.jsx
+    CompanyProfile.jsx
+    PostJob.jsx
+    ManageJobs.jsx
+    Applicants.jsx
+API ENDPOINTS
+    POST /api/jobs
+    GET /api/jobs/company
+    PUT /api/jobs/:id
+    DELETE /api/jobs/:id
+    GET /api/applications/job/:id
+USER FLOW
+    Register
+        → Login
+        → Create Company Profile
+        → Post Internship
+        → View Applicants
+        → Shortlist Candidates

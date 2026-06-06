@@ -1,0 +1,58 @@
+1️⃣ STUDENT MODULE
+PURPOSE - This module manages all student-related activities including profile management, CV upload, job searching, and internship applications.
+
+USERS
+  Students
+  Job Seekers
+FEATURES
+  Student Registration - Students can create accounts.
+  Student Profile Management
+        Students can:
+            add education
+            add skills
+            add experience
+            update profile
+  Resume Upload
+    Students can upload:
+        PDF CV
+        DOCX Resume
+  View Recommended Jobs - Students receive AI-based internship/job recommendations.
+
+  Job Search - Students can search jobs by:
+        skill
+        category
+        company
+  Apply for Internship - Students can apply for internships/jobs.
+
+  Track Application Status
+    Students can track:
+        pending
+        shortlisted
+        rejected
+        accepted
+  DATABASE COLLECTIONS
+        users
+        studentProfiles
+        applications
+  FRONTEND PAGES
+        StudentDashboard.jsx
+        Profile.jsx
+        UploadResume.jsx
+        RecommendedJobs.jsx
+        Applications.jsx
+  API ENDPOINTS
+        GET /api/student/profile
+        PUT /api/student/profile
+        POST /api/student/upload-resume
+        GET /api/student/recommendations
+        POST /api/student/apply
+        GET /api/student/applications
+  USER FLOW
+      Register
+        → Login
+        → Create Profile
+        → Upload Resume
+        → AI Extract Skills
+        → View Recommendations
+        → Apply for Job
+        → Track Status

@@ -1,0 +1,47 @@
+6️⃣ ADMIN MODULE
+PURPOSE - This module manages the entire platform.
+
+USERS
+    System Administrator
+FEATURES
+    Manage Users
+        Admin can:
+            view users
+            remove users
+            block users
+    Manage Job Posts
+        Admin can:
+            remove fake jobs
+            monitor postings
+    Monitor Platform
+        Admin monitors:
+            system activity
+            reports
+            statistics
+Generate Reports
+    Reports:
+        total users
+        total jobs
+        applications
+DATABASE COLLECTIONS
+    users
+    jobs
+    applications
+    reports
+FRONTEND PAGES
+    AdminDashboard.jsx
+    ManageUsers.jsx
+    ManageJobs.jsx
+    Reports.jsx
+API ENDPOINTS
+    GET /api/admin/users
+    DELETE /api/admin/users/:id
+    GET /api/admin/jobs
+    DELETE /api/admin/jobs/:id
+    GET /api/admin/reports
+USER FLOW
+    Admin Login
+        → View System Dashboard
+        → Manage Users
+        → Manage Jobs
+        → Generate Reports

@@ -1,0 +1,39 @@
+4️⃣ APPLICATION MODULE
+PURPOSE - This module handles internship/job applications and status tracking.
+
+FEATURES
+Apply for Job
+    Students submit applications.
+
+Save Applications
+    System stores:
+        student
+        job
+        application date
+        status
+Track Application Status
+    Students track:
+        pending
+        reviewed
+        shortlisted
+        rejected
+Recruiter Application Review
+    Recruiters review candidate applications.
+
+DATABASE COLLECTION
+    applications
+FRONTEND PAGES
+    ApplyJob.jsx
+    ApplicationStatus.jsx
+    ApplicantList.jsx
+API ENDPOINTS
+    POST /api/applications
+    GET /api/applications/student
+    GET /api/applications/job/:id
+    PUT /api/applications/status/:id
+USER FLOW
+    Student Applies
+        → Application Saved
+        → Recruiter Reviews
+        → Status Updated
+        → Student Views Status

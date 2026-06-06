@@ -1,0 +1,44 @@
+3️⃣ JOB MANAGEMENT MODULE
+PURPOSE - This module manages all internship and job listings.
+
+FEATURES
+
+Create Job Post
+    Recruiters create:
+        title
+        description
+        required skills
+        salary
+        internship duration
+View Jobs
+    Students can browse available internships.
+
+Search & Filter Jobs
+    Filter by:
+        technology
+        company
+        location
+        category
+Job Details Page
+    Display:
+        requirements
+        skills
+        company info
+        deadline
+DATABASE COLLECTION
+    jobs
+FRONTEND PAGES
+    Jobs.jsx
+    JobDetails.jsx
+    SearchJobs.jsx
+API ENDPOINTS
+    GET /api/jobs
+    GET /api/jobs/:id
+    POST /api/jobs
+    PUT /api/jobs/:id
+    DELETE /api/jobs/:id
+USER FLOW
+    Recruiter Creates Job
+        → Job Stored in Database
+        → Students Search Jobs
+        → Students View Job Details

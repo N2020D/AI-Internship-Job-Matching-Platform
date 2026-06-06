@@ -1,0 +1,63 @@
+5️⃣ AI RECOMMENDATION MODULE
+PURPOSE - This is the core intelligent module of the system.
+
+It provides:
+        AI matching
+        skill extraction
+        recommendations
+        skill gap analysis
+FEATURES
+Resume Parsing
+    Extract:
+        skills
+        education
+        technologies
+    from CV.
+
+Skill Extraction
+    Detect technologies like:
+        React
+        Python
+        Java
+        MongoDB
+Job Matching
+    Compare:
+        student skills
+        job requirements
+    Generate compatibility score.
+
+Skill Gap Analysis
+    Identify missing skills.
+            Example:
+            Missing Skill: Docker
+Learning Recommendations
+    Suggest:
+        courses
+        tutorials
+        learning platforms
+DATABASE COLLECTIONS
+    studentProfiles
+    jobs
+    recommendations
+FRONTEND PAGES
+    Recommendations.jsx
+    SkillGap.jsx
+    LearningResources.jsx
+API ENDPOINTS
+    POST /api/ai/extract-skills
+    POST /api/ai/recommend-jobs
+    POST /api/ai/skill-gap
+AI FLOW
+    Resume Uploaded
+        → Extract Skills
+        → Compare with Job Requirements
+        → Generate Match Score
+        → Identify Missing Skills
+        → Recommend Learning Resources
+
+
+| Feature    | Technology        |
+| ---------- | ----------------- |
+| NLP        | spaCy             |
+| Matching   | scikit-learn      |
+| Similarity | cosine similarity |
