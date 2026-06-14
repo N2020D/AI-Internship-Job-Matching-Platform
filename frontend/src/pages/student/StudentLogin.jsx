@@ -1,100 +1,253 @@
 import { useState } from "react";
-import { loginUser } from "../../services/authService";
-import { useNavigate, Link } from "react-router-dom";
-import AuthLayout from "../../components/AuthLayout";
+import { Link, useNavigate } from "react-router-dom";
+import {
+  HiAcademicCap,
+  HiArrowRight,
+  HiEnvelope,
+  HiEye,
+  HiEyeSlash,
+  HiLockClosed,
+} from "react-icons/hi2";
+import {
+  forgotPassword,
+  loginUser,
+} from "../../services/authService";
 
 function StudentLogin() {
   const navigate = useNavigate();
 
-  const [formData, setFormData] =
-    useState({
-      email: "",
-      password: "",
-    });
+  const [formData, setFormData] = useState({
+    email: "",
+    password: "",
+  });
+
+  const [showPassword, setShowPassword] = useState(false);
+  const [loading, setLoading] = useState(false);
+  const [resetLoading, setResetLoading] = useState(false);
+  const [showForgotPassword, setShowForgotPassword] = useState(false);
+  const [message, setMessage] = useState("");
+  const [error, setError] = useState("");
 
   const handleChange = (e) => {
     setFormData({
       ...formData,
-      [e.target.name]:
-        e.target.value,
+      [e.target.name]: e.target.value,
     });
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setError("");
+    setMessage("");
 
     try {
+      setLoading(true);
+
       const data = await loginUser({
         ...formData,
         role: "student",
       });
 
-      localStorage.setItem(
-        "token",
-        data.token
-      );
+      localStorage.setItem("token", data.token);
+      localStorage.setItem("role", data.role);
+      localStorage.setItem("user", JSON.stringify(data.user));
 
-      localStorage.setItem(
-        "role",
-        data.role
-      );
-
-      navigate(
-        "/student/dashboard"
-      );
+      navigate("/student/dashboard");
     } catch (error) {
-      alert(
-        error.response?.data
-          ?.message
-      );
+      setError(error.response?.data?.message || "Login failed");
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const handleForgotPassword = async () => {
+    setError("");
+    setMessage("");
+
+    if (!formData.email.trim()) {
+      setError("Enter your email address first");
+      return;
+    }
+
+    try {
+      setResetLoading(true);
+
+      const data = await forgotPassword({
+        email: formData.email,
+        role: "student",
+      });
+
+      setMessage(data.message);
+    } catch (error) {
+      setError(error.response?.data?.message || "Reset request failed");
+    } finally {
+      setResetLoading(false);
     }
   };
 
   return (
-    <AuthLayout
-      title="Student Login"
-      subtitle="Access your internship dashboard"
-    >
-      <form
-        onSubmit={handleSubmit}
-        className="space-y-5"
-      >
-        <input
-          type="email"
-          name="email"
-          placeholder="Email Address"
-          onChange={handleChange}
-          required
-          className="w-full border rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-blue-500"
-        />
+    <div className="min-h-screen bg-gray-100 flex">
+      <div className="hidden lg:flex lg:w-1/2 bg-blue-700 text-white p-12 flex-col justify-between">
+        <div className="flex items-center gap-3">
+          <div className="bg-white/15 p-3 rounded-xl">
+            <HiAcademicCap className="text-3xl" />
+          </div>
+          <div>
+            <h1 className="text-2xl font-bold">AI Internship Platform</h1>
+            <p className="text-blue-100">Student portal</p>
+          </div>
+        </div>
 
-        <input
-          type="password"
-          name="password"
-          placeholder="Password"
-          onChange={handleChange}
-          required
-          className="w-full border rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-blue-500"
-        />
+        <div>
+          <h2 className="text-5xl font-bold leading-tight max-w-xl">
+            Find internships that match your skills and goals.
+          </h2>
+          <p className="text-blue-100 mt-6 text-lg max-w-lg">
+            Sign in to manage your profile, track applications, upload your
+            resume, and discover recommended opportunities.
+          </p>
+        </div>
 
-        <button
-          type="submit"
-          className="w-full bg-blue-600 text-white py-3 rounded-xl hover:bg-blue-700 transition"
-        >
-          Login
-        </button>
-
-        <p className="text-center text-gray-600">
-          New Student?{" "}
-          <Link
-            to="/student/register"
-            className="text-blue-600 font-semibold"
-          >
-            Register
-          </Link>
+        <p className="text-blue-100">
+          Build your profile once. Use it everywhere.
         </p>
-      </form>
-    </AuthLayout>
+      </div>
+
+      <div className="flex-1 flex items-center justify-center px-4 py-10">
+        <div className="w-full max-w-md bg-white rounded-2xl shadow-xl p-8">
+          <div className="lg:hidden flex justify-center mb-5">
+            <div className="bg-blue-600 p-3 rounded-xl">
+              <HiAcademicCap className="text-3xl text-white" />
+            </div>
+          </div>
+
+          <h1 className="text-3xl font-bold text-gray-900">
+            Welcome Back
+          </h1>
+          <p className="text-gray-500 mt-2">
+            Login to continue to your student dashboard.
+          </p>
+
+          {error && (
+            <div className="mt-5 bg-red-50 border border-red-200 text-red-700 px-4 py-3 rounded-xl">
+              {error}
+            </div>
+          )}
+
+          {message && (
+            <div className="mt-5 bg-green-50 border border-green-200 text-green-700 px-4 py-3 rounded-xl">
+              {message}
+            </div>
+          )}
+
+          <form
+            onSubmit={handleSubmit}
+            className="mt-7 space-y-5"
+          >
+            <div>
+              <label className="block text-sm font-medium text-gray-700 mb-2">
+                Email Address
+              </label>
+              <div className="relative">
+                <HiEnvelope className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400 text-xl" />
+                <input
+                  type="email"
+                  name="email"
+                  value={formData.email}
+                  placeholder="student@example.com"
+                  onChange={handleChange}
+                  required
+                  className="w-full border border-gray-300 rounded-xl pl-12 pr-4 py-3 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                />
+              </div>
+            </div>
+
+            <div>
+              <label className="block text-sm font-medium text-gray-700 mb-2">
+                Password
+              </label>
+              <div className="relative">
+                <HiLockClosed className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400 text-xl" />
+                <input
+                  type={showPassword ? "text" : "password"}
+                  name="password"
+                  value={formData.password}
+                  placeholder="Enter your password"
+                  onChange={handleChange}
+                  required
+                  className="w-full border border-gray-300 rounded-xl pl-12 pr-12 py-3 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                />
+                <button
+                  type="button"
+                  onClick={() => setShowPassword(!showPassword)}
+                  className="absolute right-4 top-1/2 -translate-y-1/2 text-gray-500 hover:text-blue-600"
+                  aria-label={showPassword ? "Hide password" : "Show password"}
+                >
+                  {showPassword ? (
+                    <HiEyeSlash className="text-xl" />
+                  ) : (
+                    <HiEye className="text-xl" />
+                  )}
+                </button>
+              </div>
+            </div>
+
+            <div className="flex items-center justify-between">
+              <label className="flex items-center gap-2 text-sm text-gray-600">
+                <input
+                  type="checkbox"
+                  className="rounded border-gray-300 text-blue-600 focus:ring-blue-500"
+                />
+                Remember me
+              </label>
+
+              <button
+                type="button"
+                onClick={() => setShowForgotPassword(!showForgotPassword)}
+                className="text-sm font-semibold text-blue-600 hover:text-blue-700"
+              >
+                Forgot password?
+              </button>
+            </div>
+
+            {showForgotPassword && (
+              <div className="bg-blue-50 border border-blue-100 rounded-xl p-4">
+                <p className="text-sm text-blue-900">
+                  Enter your email above, then request password help.
+                </p>
+                <button
+                  type="button"
+                  onClick={handleForgotPassword}
+                  disabled={resetLoading}
+                  className="mt-3 text-sm font-semibold text-blue-700 hover:text-blue-800 disabled:opacity-60"
+                >
+                  {resetLoading ? "Sending request..." : "Send reset request"}
+                </button>
+              </div>
+            )}
+
+            <button
+              type="submit"
+              disabled={loading}
+              className="w-full bg-blue-600 text-white py-3 rounded-xl hover:bg-blue-700 transition flex items-center justify-center gap-2 disabled:opacity-70"
+            >
+              {loading ? "Logging in..." : "Login"}
+              {!loading && <HiArrowRight className="text-xl" />}
+            </button>
+          </form>
+
+          <p className="text-center text-gray-600 mt-6">
+            New Student?{" "}
+            <Link
+              to="/student/register"
+              className="text-blue-600 font-semibold hover:text-blue-700"
+            >
+              Register
+            </Link>
+          </p>
+        </div>
+      </div>
+    </div>
   );
 }
 

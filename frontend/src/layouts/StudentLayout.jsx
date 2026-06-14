@@ -9,15 +9,15 @@ function StudentLayout() {
       {/* Navbar */}
       <Navbar />
 
-      <div className="flex">
+      <div className="flex items-start">
 
         {/* Sidebar */}
         <Sidebar />
 
         {/* Main Content */}
-        <main className="flex-1 bg-gray-100 p-8 overflow-y-auto">
-    <Outlet />
-</main>
+        <main className="flex-1 bg-gray-100 p-8 min-w-0">
+          <Outlet />
+        </main>
 
       </div>
 

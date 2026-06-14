@@ -1,8 +1,11 @@
+import { useEffect, useState } from "react";
 import DashboardCard from "../../components/dashboard/DashboardCard";
 import WelcomeCard from "../../components/dashboard/WelcomeCard";
 import RecommendedJobs from "../../components/dashboard/RecommendedJobs";
 import RecentApplications from "../../components/dashboard/RecentApplications";
 import AISuggestions from "../../components/dashboard/AISuggestions";
+import { getProfile } from "../../services/studentService";
+import { calculateProfileCompletion } from "../../utils/profileCompletion";
 
 import {
   HiBriefcase,
@@ -11,10 +14,37 @@ import {
 } from "react-icons/hi2";
 
 function StudentDashboard() {
+  const storedUser =
+    JSON.parse(localStorage.getItem("user")) || {};
+
+  const [profile, setProfile] = useState(storedUser);
+
+  useEffect(() => {
+    const loadProfile = async () => {
+      try {
+        const data = await getProfile();
+
+        setProfile(data);
+      } catch (error) {
+        console.log(error);
+      }
+    };
+
+    loadProfile();
+
+    window.addEventListener("student-profile-updated", loadProfile);
+
+    return () => {
+      window.removeEventListener("student-profile-updated", loadProfile);
+    };
+  }, []);
+
+  const profileCompletion = calculateProfileCompletion(profile);
+
   return (
     <div className="space-y-6">
 
-      <WelcomeCard />
+      <WelcomeCard profile={profile} />
 
       <div className="grid md:grid-cols-3 gap-6">
 
@@ -34,7 +64,7 @@ function StudentDashboard() {
 
         <DashboardCard
           title="Profile"
-          value="92%"
+          value={`${profileCompletion}%`}
           icon={<HiAcademicCap />}
           color="border-yellow-500"
         />

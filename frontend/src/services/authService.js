@@ -19,3 +19,12 @@ export const loginUser = async (userData) => {
 
   return response.data;
 };
+
+export const forgotPassword = async (data) => {
+  const response = await axios.post(
+    `${API_URL}/forgot-password`,
+    data
+  );
+
+  return response.data;
+};

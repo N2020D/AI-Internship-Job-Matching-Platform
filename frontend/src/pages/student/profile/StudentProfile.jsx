@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 import { getProfile } from "../../../services/studentService";
 
@@ -16,6 +17,8 @@ import SkillsCard from "../../../components/student/Profile/SkillsCard";
 import SocialLinksCard from "../../../components/student/Profile/SocialLinksCard";
 
 function StudentProfile() {
+
+  const navigate = useNavigate();
 
   const [profile, setProfile] = useState(null);
 
@@ -67,7 +70,9 @@ const loadProfile = async () => {
 
         profile={profile}
 
-        onEdit={() => {}}
+        onEdit={() => navigate("/student/profile/edit")}
+
+        refreshProfile={loadProfile}
 
       />
 

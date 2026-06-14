@@ -1,6 +1,6 @@
 import ProfilePhoto from "./ProfilePhoto";
 
-function ProfileHeader({ profile, onEdit }) {
+function ProfileHeader({ profile, onEdit, refreshProfile }) {
 
   return (
 
@@ -8,7 +8,10 @@ function ProfileHeader({ profile, onEdit }) {
 
       <div className="flex flex-col lg:flex-row gap-8">
 
-        <ProfilePhoto profile={profile} />
+        <ProfilePhoto
+          profile={profile}
+          refreshProfile={refreshProfile}
+        />
 
         <div className="flex-1">
 

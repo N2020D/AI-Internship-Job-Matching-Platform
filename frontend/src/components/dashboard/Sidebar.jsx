@@ -150,14 +150,14 @@ function Sidebar() {
   }
 
   return (
-    <aside className="w-64 bg-slate-900 text-white h-[calc(100vh-72px)] sticky top-28 flex flex-col">
+    <aside className="w-64 bg-slate-800 text-white h-[calc(100vh-81px)] sticky top-20.25 flex flex-col shrink-0">
       <div className="p-6 border-b border-slate-700">
         <h1 className="text-xl font-bold text-blue-400">
           AI Job Platform
         </h1>
       </div>
 
-      <nav className="flex-1 p-4">
+      <nav className="flex-1 p-4 overflow-y-auto">
         {menu.map((item) => (
           <NavLink
             key={item.path}
@@ -179,7 +179,7 @@ function Sidebar() {
         ))}
       </nav>
 
-      <div className="p-4 border-t border-slate-700">
+      <div className="p-4 border-t border-slate-700 bg-slate-700">
         <button
           onClick={logout}
           className="flex items-center gap-3 w-full p-3 rounded-lg hover:bg-red-600 transition"

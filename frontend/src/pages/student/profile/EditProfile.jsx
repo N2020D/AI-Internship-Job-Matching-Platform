@@ -1,13 +1,38 @@
 import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import {
   getProfile,
   updateProfile,
 } from "../../../services/studentService";
 
+const initialFormData = {
+  name: "",
+  email: "",
+  phone: "",
+  gender: "",
+  university: "",
+  degree: "",
+  academicYear: "",
+  gpa: "",
+  bio: "",
+  github: "",
+  linkedin: "",
+  portfolio: "",
+  careerObjective: "",
+  education: [],
+  projects: [],
+  skills: [],
+  languages: [],
+};
+
 function EditProfile() {
+  const navigate = useNavigate();
+
   const [loading, setLoading] = useState(true);
 
   const [saving, setSaving] = useState(false);
+
+  const [formData, setFormData] = useState(initialFormData);
 
   const [skill, setSkill] = useState("");
 
@@ -67,8 +92,11 @@ projects: data.projects || [],
 skills:
 data.skills || [],
 
-languages:
-data.languages || [],
+        languages: (data.languages || []).map((item) =>
+          typeof item === "string"
+            ? { name: item, level: "" }
+            : item
+        ),
       });
     } catch (error) {
       console.log(error);
@@ -286,8 +314,12 @@ const removeProject = (index) => {
       await updateProfile(formData);
 
       alert("Profile Updated Successfully");
+
+      window.dispatchEvent(new Event("student-profile-updated"));
+
+      navigate("/student/profile/StudentProfile");
     } catch (error) {
-      alert("Update Failed");
+      alert(error.response?.data?.message || "Update Failed");
     } finally {
       setSaving(false);
     }
@@ -1157,7 +1189,16 @@ Delete
 
       {/* BUTTON */}
 
-      <div className="text-right">
+      <div className="flex justify-end gap-4">
+
+        <button
+          type="button"
+          onClick={() => navigate("/student/profile/StudentProfile")}
+          disabled={saving}
+          className="border border-gray-300 text-gray-700 px-8 py-3 rounded-lg hover:bg-gray-100"
+        >
+          Cancel
+        </button>
 
         <button
           type="submit"

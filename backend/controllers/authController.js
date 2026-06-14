@@ -92,3 +92,35 @@ exports.loginUser = async (req, res) => {
     });
   }
 };
+
+// FORGOT PASSWORD
+
+exports.forgotPassword = async (req, res) => {
+  try {
+    const { email, role } = req.body;
+
+    if (!email) {
+      return res.status(400).json({
+        message: "Email is required",
+      });
+    }
+
+    const user = await User.findOne({ email });
+
+    if (!user || user.role !== role) {
+      return res.status(404).json({
+        message: "Student account not found",
+      });
+    }
+
+    res.status(200).json({
+      success: true,
+      message:
+        "Password reset request received. Please contact the system administrator to reset your password.",
+    });
+  } catch (error) {
+    res.status(500).json({
+      message: error.message,
+    });
+  }
+};

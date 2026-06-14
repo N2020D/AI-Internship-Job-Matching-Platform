@@ -15,10 +15,12 @@ import RecruiterLogin from "./pages/recruiter/RecruiterLogin";
 import AdminLogin from "./pages/admin/AdminLogin";
 
 import StudentDashboard from "./pages/student/StudentDashboard";
+import StudentSectionPage from "./pages/student/StudentSectionPage";
 import RecruiterDashboard from "./pages/recruiter/RecruiterDashboard";
 import AdminDashboard from "./pages/admin/AdminDashboard";
 
 import StudentProfile from "./pages/student/profile/StudentProfile";
+import EditProfile from "./pages/student/profile/EditProfile";
 
 import StudentLayout from "./layouts/StudentLayout";
 
@@ -80,6 +82,41 @@ function App() {
   <Route
     path="/student/profile/StudentProfile"
     element={<StudentProfile />}
+  />
+
+  <Route
+    path="/student/profile/edit"
+    element={<EditProfile />}
+  />
+
+  <Route
+    path="/student/resume"
+    element={<StudentSectionPage />}
+  />
+
+  <Route
+    path="/student/jobs"
+    element={<StudentSectionPage />}
+  />
+
+  <Route
+    path="/student/applications"
+    element={<StudentSectionPage />}
+  />
+
+  <Route
+    path="/student/ai"
+    element={<StudentSectionPage />}
+  />
+
+  <Route
+    path="/student/notifications"
+    element={<StudentSectionPage />}
+  />
+
+  <Route
+    path="/student/settings"
+    element={<StudentSectionPage />}
   />
 
 </Route>

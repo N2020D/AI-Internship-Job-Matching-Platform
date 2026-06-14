@@ -29,7 +29,32 @@ const userSchema = new mongoose.Schema({
 
 
 
-    phone: {
+phone: {
+    type: String,
+    default: "",
+},
+
+university: {
+    type: String,
+    default: "",
+},
+
+degree: {
+    type: String,
+    default: "",
+},
+
+academicYear: {
+    type: String,
+    default: "",
+},
+
+gpa: {
+    type: String,
+    default: "",
+},
+
+bio: {
     type: String,
     default: "",
 },
@@ -115,9 +140,12 @@ skills: [{
     type: String,
 }],
 
-languages: [{
-    type: String,
-}]
+languages: [
+    {
+        name: String,
+        level: String,
+    }
+]
   },
 { 
     timestamps: true ,

@@ -4,16 +4,52 @@ import {
   HiArrowRightOnRectangle,
 } from "react-icons/hi2";
 
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { getProfile } from "../../services/studentService";
+
+const getProfileImageUrl = (profileImage) => {
+  if (!profileImage) return "";
+
+  if (profileImage.startsWith("http")) {
+    return profileImage;
+  }
+
+  return `http://localhost:5000/uploads/profile-images/${profileImage}`;
+};
 
 function Navbar() {
   const navigate = useNavigate();
 
-  const user =
+  const storedUser =
     JSON.parse(localStorage.getItem("user")) || {};
+
+  const [profile, setProfile] = useState(storedUser);
 
   const role =
     localStorage.getItem("role");
+
+  const profileImageUrl = getProfileImageUrl(profile.profileImage);
+
+  useEffect(() => {
+    const loadProfile = async () => {
+      try {
+        const data = await getProfile();
+
+        setProfile(data);
+      } catch (error) {
+        console.log(error);
+      }
+    };
+
+    loadProfile();
+
+    window.addEventListener("student-profile-updated", loadProfile);
+
+    return () => {
+      window.removeEventListener("student-profile-updated", loadProfile);
+    };
+  }, []);
 
   const logout = () => {
     localStorage.clear();
@@ -38,7 +74,7 @@ function Navbar() {
 
             Welcome back,
             <span className="font-semibold ml-1">
-              {user.name}
+              {profile.name}
             </span>
 
           </p>
@@ -77,7 +113,7 @@ function Navbar() {
 
             <h2 className="font-semibold">
 
-              {user.name}
+              {profile.name}
 
             </h2>
 
@@ -89,11 +125,19 @@ function Navbar() {
 
           </div>
 
-          <div className="w-12 h-12 rounded-full bg-blue-600 text-white flex items-center justify-center font-bold text-lg">
+          <div className="w-12 h-12 rounded-full bg-blue-600 text-white flex items-center justify-center font-bold text-lg overflow-hidden">
 
-            {user.name
-              ?.charAt(0)
-              ?.toUpperCase()}
+            {profileImageUrl ? (
+              <img
+                src={profileImageUrl}
+                alt="Profile"
+                className="w-full h-full object-cover"
+              />
+            ) : (
+              profile.name
+                ?.charAt(0)
+                ?.toUpperCase()
+            )}
 
           </div>
 

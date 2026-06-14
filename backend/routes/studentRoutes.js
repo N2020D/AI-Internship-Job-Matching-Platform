@@ -1,5 +1,6 @@
 const express = require("express");
 const upload = require("../middleware/uploadResume");
+const uploadProfileImage = require("../middleware/uploadProfileImage");
 
 const router = express.Router();
 
@@ -8,7 +9,9 @@ const {
     getProfile,
 
     updateProfile,
-    uploadResume
+    uploadResume,
+    uploadProfileImage: uploadProfileImageController,
+    deleteProfileImage
 } = require("../controllers/studentController");
 
 const {
@@ -46,6 +49,28 @@ router.put(
     upload.single("resume"),
 
     uploadResume
+
+);
+
+router.put(
+
+    "/profile/photo",
+
+    protect,
+
+    uploadProfileImage.single("profileImage"),
+
+    uploadProfileImageController
+
+);
+
+router.delete(
+
+    "/profile/photo",
+
+    protect,
+
+    deleteProfileImage
 
 );
 

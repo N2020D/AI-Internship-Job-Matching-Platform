@@ -1,14 +1,8 @@
+import { calculateProfileCompletion } from "../../../utils/profileCompletion";
+
 function ProfileCompletion({ profile }) {
 
-  let progress = 0;
-
-  if (profile.name) progress += 10;
-  if (profile.phone) progress += 10;
-  if (profile.bio) progress += 10;
-  if (profile.university) progress += 15;
-  if (profile.degree) progress += 15;
-  if (profile.skills?.length) progress += 20;
-  if (profile.resume) progress += 20;
+  const progress = calculateProfileCompletion(profile);
 
   return (
 
