@@ -3,15 +3,32 @@ const cors = require("cors");
 const dotenv = require("dotenv");
 const mongoose = require("mongoose");
 
+const authRoutes = require("./routes/authRoutes");
+
+
+const studentRoutes = require("./routes/studentRoutes");
+
+
 dotenv.config();
 
 const app = express();
 
 app.use(cors());
+
+// Middleware to parse JSON bodies
 app.use(express.json());
+  
+app.use("/uploads", express.static("uploads"));
+app.use("/api/auth", authRoutes);
+app.use("/api/student", studentRoutes);
+
+
+
+
+
 
 app.get("/", (req, res) => {
-  res.send("Backend is running 🚀");
+  res.send("Backend is running successfully");
 });
 
 mongoose
@@ -28,3 +45,5 @@ mongoose
   .catch((err) => {
     console.log(err);
   });
+
+
