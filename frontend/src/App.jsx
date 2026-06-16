@@ -16,13 +16,28 @@ import AdminLogin from "./pages/admin/AdminLogin";
 
 import StudentDashboard from "./pages/student/StudentDashboard";
 import StudentSectionPage from "./pages/student/StudentSectionPage";
+import StudentAIPage from "./pages/student/StudentAIPage";
+import StudentNotificationsPage from "./pages/student/StudentNotificationsPage";
+import StudentSettingsPage from "./pages/student/StudentSettingsPage";
+import MainLandingPage from "./pages/MainLandingPage";
 import RecruiterDashboard from "./pages/recruiter/RecruiterDashboard";
 import AdminDashboard from "./pages/admin/AdminDashboard";
 
 import StudentProfile from "./pages/student/profile/StudentProfile";
 import EditProfile from "./pages/student/profile/EditProfile";
+import ResumePage from "./pages/student/ResumePage";
+import JobsPage from "./pages/student/JobsPage";
+import ApplicationsPage from "./pages/student/ApplicationsPage";
 
 import StudentLayout from "./layouts/StudentLayout";
+import RecruiterLayout from "./layouts/RecruiterLayout";
+
+import PostJobPage from "./pages/recruiter/PostJobPage";
+import ManageJobsPage from "./pages/recruiter/ManageJobsPage";
+import JobApplicantsPage from "./pages/recruiter/JobApplicantsPage";
+import RecruiterCompanyPage from "./pages/recruiter/RecruiterCompanyPage";
+import RecruiterAIPage from "./pages/recruiter/RecruiterAIPage";
+import RecruiterSettingsPage from "./pages/recruiter/RecruiterSettingsPage";
 
 import ProtectedRoute from "./routes/ProtectedRoute";
 
@@ -32,10 +47,7 @@ function App() {
     <BrowserRouter>
       <Routes>
 
-        <Route
-  path="/"
-  element={<StudentLogin />}
-/> 
+        <Route path="/" element={<MainLandingPage />} />
 
         <Route
           path="/student/register"
@@ -85,38 +97,43 @@ function App() {
   />
 
   <Route
+    path="/student/profile"
+    element={<StudentProfile />}
+  />
+
+  <Route
     path="/student/profile/edit"
     element={<EditProfile />}
   />
 
   <Route
     path="/student/resume"
-    element={<StudentSectionPage />}
+    element={<ResumePage />}
   />
 
   <Route
     path="/student/jobs"
-    element={<StudentSectionPage />}
+    element={<JobsPage />}
   />
 
   <Route
     path="/student/applications"
-    element={<StudentSectionPage />}
+    element={<ApplicationsPage />}
   />
 
   <Route
     path="/student/ai"
-    element={<StudentSectionPage />}
+    element={<StudentAIPage />}
   />
 
   <Route
     path="/student/notifications"
-    element={<StudentSectionPage />}
+    element={<StudentNotificationsPage />}
   />
 
   <Route
     path="/student/settings"
-    element={<StudentSectionPage />}
+    element={<StudentSettingsPage />}
   />
 
 </Route>
@@ -127,13 +144,47 @@ function App() {
         
 
         <Route
-          path="/recruiter/dashboard"
           element={
             <ProtectedRoute role="recruiter">
-              <RecruiterDashboard />
+              <RecruiterLayout />
             </ProtectedRoute>
           }
-        />
+        >
+          <Route
+            path="/recruiter/dashboard"
+            element={<RecruiterDashboard />}
+          />
+
+          <Route
+            path="/recruiter/post-job"
+            element={<PostJobPage />}
+          />
+
+          <Route
+            path="/recruiter/jobs"
+            element={<ManageJobsPage />}
+          />
+
+          <Route
+            path="/recruiter/applicants/:jobId"
+            element={<JobApplicantsPage />}
+          />
+
+          <Route
+            path="/recruiter/company"
+            element={<RecruiterCompanyPage />}
+          />
+
+          <Route
+            path="/recruiter/ai"
+            element={<RecruiterAIPage />}
+          />
+
+          <Route
+            path="/recruiter/settings"
+            element={<RecruiterSettingsPage />}
+          />
+        </Route>
 
         <Route
           path="/admin/dashboard"

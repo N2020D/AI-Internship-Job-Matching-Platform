@@ -4,10 +4,9 @@ const dotenv = require("dotenv");
 const mongoose = require("mongoose");
 
 const authRoutes = require("./routes/authRoutes");
-
-
 const studentRoutes = require("./routes/studentRoutes");
-
+const jobRoutes = require("./routes/jobRoutes");
+const recruiterRoutes = require("./routes/recruiterRoutes");
 
 dotenv.config();
 
@@ -21,6 +20,8 @@ app.use(express.json());
 app.use("/uploads", express.static("uploads"));
 app.use("/api/auth", authRoutes);
 app.use("/api/student", studentRoutes);
+app.use("/api/recruiter", recruiterRoutes);
+app.use("/api/jobs", jobRoutes);
 
 
 

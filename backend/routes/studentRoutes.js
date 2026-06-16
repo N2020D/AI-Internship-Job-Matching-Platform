@@ -11,7 +11,8 @@ const {
     updateProfile,
     uploadResume,
     uploadProfileImage: uploadProfileImageController,
-    deleteProfileImage
+    deleteProfileImage,
+    deleteResume
 } = require("../controllers/studentController");
 
 const {
@@ -71,6 +72,16 @@ router.delete(
     protect,
 
     deleteProfileImage
+
+);
+
+router.delete(
+
+    "/resume",
+
+    protect,
+
+    deleteResume
 
 );
 

@@ -135,10 +135,44 @@ const deleteProfileImage = async (req, res) => {
   }
 };
 
+// ======================
+// DELETE RESUME
+// ======================
+
+const deleteResume = async (req, res) => {
+  try {
+    const student = await User.findById(req.user.id);
+
+    if (!student.resume) {
+      return res.status(400).json({
+        message: "No resume to delete",
+      });
+    }
+
+    // Delete file from uploads folder
+    const filePath = path.join(__dirname, "..", "uploads", "resumes", student.resume);
+    if (fs.existsSync(filePath)) {
+      fs.unlinkSync(filePath);
+    }
+
+    student.resume = "";
+    await student.save();
+
+    res.status(200).json({
+      message: "Resume deleted successfully",
+    });
+  } catch (error) {
+    res.status(500).json({
+      message: error.message,
+    });
+  }
+};
+
 module.exports = {
   getProfile,
   updateProfile,
   uploadResume,
   uploadProfileImage,
   deleteProfileImage,
+  deleteResume,
 };

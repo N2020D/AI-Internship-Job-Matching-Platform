@@ -100,6 +100,27 @@ export const uploadProfilePhoto = async (file) => {
 };
 
 // ======================
+// DELETE RESUME
+// ======================
+
+export const deleteResume = async () => {
+
+  const token = localStorage.getItem("token");
+
+  const response = await axios.delete(
+    `${API}/resume`,
+    {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    }
+  );
+
+  return response.data;
+
+};
+
+// ======================
 // DELETE PROFILE PHOTO
 // ======================
 

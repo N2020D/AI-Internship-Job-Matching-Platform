@@ -21,8 +21,15 @@ function Sidebar() {
   const role = localStorage.getItem("role");
 
   const logout = () => {
+    const redirectPath =
+      role === "recruiter"
+        ? "/recruiter/login"
+        : role === "admin"
+        ? "/admin/login"
+        : "/student/login";
+
     localStorage.clear();
-    navigate("/student/login");
+    navigate(redirectPath);
   };
 
   const studentMenu = [
@@ -34,7 +41,7 @@ function Sidebar() {
     {
       name: "Profile",
       icon: <HiUser />,
-      path: "/student/profile/StudentProfile",
+      path: "/student/profile",
     },
     {
       name: "Resume",
