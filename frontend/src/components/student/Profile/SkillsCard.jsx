@@ -1,4 +1,6 @@
-function SkillsCard({ profile }) {
+import { HiPlus } from "react-icons/hi2";
+
+function SkillsCard({ profile, onEdit }) {
 
   const skills = profile.skills || [];
 
@@ -12,7 +14,12 @@ function SkillsCard({ profile }) {
           Skills
         </h2>
 
-        <button className="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700">
+        <button
+          type="button"
+          onClick={onEdit}
+          className="inline-flex items-center gap-2 bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700"
+        >
+          <HiPlus />
 
           Add Skill
 

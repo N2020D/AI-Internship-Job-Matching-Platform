@@ -19,6 +19,7 @@ import SocialLinksCard from "../../../components/student/Profile/SocialLinksCard
 function StudentProfile() {
 
   const navigate = useNavigate();
+  const goToEditProfile = () => navigate("/student/profile/edit");
 
   const [profile, setProfile] = useState(null);
 
@@ -103,24 +104,28 @@ const loadProfile = async () => {
       <CareerObjectiveCard
 
         profile={profile}
+        onEdit={goToEditProfile}
 
       />
   
       <EducationCard
 
         profile={profile}
+        onEdit={goToEditProfile}
 
       />
   
       <LanguagesCard
 
         profile={profile}
+        onEdit={goToEditProfile}
 
       />
   
       <ProjectsCard
 
         profile={profile}
+        onEdit={goToEditProfile}
 
       />   
       <ResumeCard
@@ -134,12 +139,14 @@ refreshProfile={loadProfile}
       <SkillsCard
 
         profile={profile}
+        onEdit={goToEditProfile}
 
       />
   
       <SocialLinksCard
 
         profile={profile}
+        onEdit={goToEditProfile}
 
       />
 

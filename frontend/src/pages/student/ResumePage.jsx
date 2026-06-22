@@ -274,19 +274,19 @@ function ResumePage() {
               <h3 className="text-lg font-bold text-gray-900 mb-4">File Requirements</h3>
               <div className="space-y-3 text-sm text-gray-700">
                 <div className="flex gap-2">
-                  <span className="text-blue-600">•</span>
+                  <HiCheckCircle className="text-blue-600 shrink-0 mt-0.5" />
                   <span>Supported: PDF, DOC, DOCX</span>
                 </div>
                 <div className="flex gap-2">
-                  <span className="text-blue-600">•</span>
+                  <HiCheckCircle className="text-blue-600 shrink-0 mt-0.5" />
                   <span>Max size: 5MB</span>
                 </div>
                 <div className="flex gap-2">
-                  <span className="text-blue-600">•</span>
+                  <HiCheckCircle className="text-blue-600 shrink-0 mt-0.5" />
                   <span>Clear file naming</span>
                 </div>
                 <div className="flex gap-2">
-                  <span className="text-blue-600">•</span>
+                  <HiCheckCircle className="text-blue-600 shrink-0 mt-0.5" />
                   <span>Recent and updated</span>
                 </div>
               </div>

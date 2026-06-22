@@ -43,7 +43,11 @@ const sectionDetails = {
 
 function StudentSectionPage() {
   const location = useLocation();
-  const section = sectionDetails[location.pathname];
+  const section = sectionDetails[location.pathname] || {
+    title: "Student Section",
+    description: "This student section is ready for your next feature implementation.",
+    icon: <HiSparkles />,
+  };
 
   return (
     <div className="bg-white rounded-xl shadow p-8">

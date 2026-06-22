@@ -1,6 +1,6 @@
-import { HiLanguage } from "react-icons/hi2";
+import { HiLanguage, HiPlus } from "react-icons/hi2";
 
-function LanguagesCard({ profile }) {
+function LanguagesCard({ profile, onEdit }) {
   const languages = profile.languages || [];
 
   return (
@@ -13,8 +13,11 @@ function LanguagesCard({ profile }) {
         </h2>
 
         <button
-          className="bg-blue-600 hover:bg-blue-700 text-white px-5 py-2 rounded-lg"
+          type="button"
+          onClick={onEdit}
+          className="inline-flex items-center gap-2 bg-blue-600 hover:bg-blue-700 text-white px-5 py-2 rounded-lg"
         >
+          <HiPlus />
           Add Language
         </button>
 

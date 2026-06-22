@@ -39,6 +39,11 @@ function AdminLogin() {
         data.role
       );
 
+      localStorage.setItem(
+        "user",
+        JSON.stringify(data.user)
+      );
+
       navigate(
         "/admin/dashboard"
       );

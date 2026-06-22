@@ -2,6 +2,7 @@
 
 import {
   BrowserRouter,
+  Navigate,
   Routes,
   Route,
 } from "react-router-dom";
@@ -13,15 +14,24 @@ import RecruiterRegister from "./pages/recruiter/RecruiterRegister";
 import RecruiterLogin from "./pages/recruiter/RecruiterLogin";
 
 import AdminLogin from "./pages/admin/AdminLogin";
+import AdminRegister from "./pages/admin/AdminRegister";
 
 import StudentDashboard from "./pages/student/StudentDashboard";
 import StudentSectionPage from "./pages/student/StudentSectionPage";
 import StudentAIPage from "./pages/student/StudentAIPage";
 import StudentNotificationsPage from "./pages/student/StudentNotificationsPage";
 import StudentSettingsPage from "./pages/student/StudentSettingsPage";
+
+
+
+
 import MainLandingPage from "./pages/MainLandingPage";
+
+
+
 import RecruiterDashboard from "./pages/recruiter/RecruiterDashboard";
 import AdminDashboard from "./pages/admin/AdminDashboard";
+import AdminModulePage from "./pages/admin/AdminModulePage";
 
 import StudentProfile from "./pages/student/profile/StudentProfile";
 import EditProfile from "./pages/student/profile/EditProfile";
@@ -31,6 +41,7 @@ import ApplicationsPage from "./pages/student/ApplicationsPage";
 
 import StudentLayout from "./layouts/StudentLayout";
 import RecruiterLayout from "./layouts/RecruiterLayout";
+import AdminLayout from "./layouts/AdminLayout";
 
 import PostJobPage from "./pages/recruiter/PostJobPage";
 import ManageJobsPage from "./pages/recruiter/ManageJobsPage";
@@ -47,7 +58,14 @@ function App() {
     <BrowserRouter>
       <Routes>
 
-        <Route path="/" element={<MainLandingPage />} />
+           {/* Landing Page */}
+    <Route
+      path="/"
+      element={<MainLandingPage />}
+    />
+        <Route path="/student" element={<Navigate to="/student/login" replace />} />
+        <Route path="/recruiter" element={<Navigate to="/recruiter/login" replace />} />
+        <Route path="/admin" element={<Navigate to="/admin/login" replace />} />
 
         <Route
           path="/student/register"
@@ -72,6 +90,11 @@ function App() {
         <Route
           path="/admin/login"
           element={<AdminLogin />}
+        />
+
+        <Route
+          path="/admin/register"
+          element={<AdminRegister />}
         />
 
         
@@ -136,6 +159,11 @@ function App() {
     element={<StudentSettingsPage />}
   />
 
+  <Route
+    path="/student/section"
+    element={<StudentSectionPage />}
+  />
+
 </Route>
 
 
@@ -187,13 +215,49 @@ function App() {
         </Route>
 
         <Route
-          path="/admin/dashboard"
           element={
             <ProtectedRoute role="admin">
-              <AdminDashboard />
+              <AdminLayout />
             </ProtectedRoute>
           }
-        />
+        >
+          <Route
+            path="/admin/dashboard"
+            element={<AdminDashboard />}
+          />
+
+          <Route
+            path="/admin/students"
+            element={<AdminModulePage module="students" />}
+          />
+
+          <Route
+            path="/admin/recruiters"
+            element={<AdminModulePage module="recruiters" />}
+          />
+
+          <Route
+            path="/admin/jobs"
+            element={<AdminModulePage module="jobs" />}
+          />
+
+          <Route
+            path="/admin/reports"
+            element={<AdminModulePage module="reports" />}
+          />
+
+          <Route
+            path="/admin/analytics"
+            element={<AdminModulePage module="analytics" />}
+          />
+
+          <Route
+            path="/admin/settings"
+            element={<AdminModulePage module="settings" />}
+          />
+        </Route>
+
+        <Route path="*" element={<Navigate to="/" replace />} />
 
       </Routes>
 

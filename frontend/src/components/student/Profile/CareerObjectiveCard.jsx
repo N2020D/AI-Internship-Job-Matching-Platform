@@ -1,4 +1,6 @@
-function CareerObjectiveCard({ profile }) {
+import { HiPencilSquare } from "react-icons/hi2";
+
+function CareerObjectiveCard({ profile, onEdit }) {
 
   return (
 
@@ -12,7 +14,12 @@ function CareerObjectiveCard({ profile }) {
 
         </h2>
 
-        <button className="bg-blue-600 hover:bg-blue-700 text-white px-5 py-2 rounded-lg">
+        <button
+          type="button"
+          onClick={onEdit}
+          className="inline-flex items-center gap-2 bg-blue-600 hover:bg-blue-700 text-white px-5 py-2 rounded-lg"
+        >
+          <HiPencilSquare />
 
           Edit
 

@@ -8,6 +8,7 @@ import {
   HiChevronLeft,
   HiChevronRight,
   HiCheckCircle,
+  HiMinus,
 } from "react-icons/hi2";
 import { getAllJobs, applyJob, withdrawApplication, getMyAppliedJobs } from "../../services/jobService";
 
@@ -265,20 +266,21 @@ function JobsPage() {
                   <label className="block text-xs sm:text-sm font-semibold text-gray-900 mb-2">
                     Salary Range
                   </label>
-                  <div className="flex gap-2">
+                  <div className="grid grid-cols-[minmax(0,1fr)_auto_minmax(0,1fr)] items-center gap-2">
                     <input
                       type="number"
                       placeholder="Min"
                       value={salaryMin}
                       onChange={(e) => handleSalaryMinChange(e.target.value)}
-                      className="flex-1 px-3 py-2 text-sm border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none"
+                      className="w-full min-w-0 px-3 py-2 text-sm border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none"
                     />
+                    <HiMinus className="text-gray-400" />
                     <input
                       type="number"
                       placeholder="Max"
                       value={salaryMax}
                       onChange={(e) => handleSalaryMaxChange(e.target.value)}
-                      className="flex-1 px-3 py-2 text-sm border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none"
+                      className="w-full min-w-0 px-3 py-2 text-sm border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none"
                     />
                   </div>
                 </div>
@@ -463,7 +465,7 @@ function JobsPage() {
                     <ul className="space-y-2">
                       {selectedJob.requirements.map((req, idx) => (
                         <li key={idx} className="flex gap-2 sm:gap-3 text-gray-700 text-sm sm:text-base">
-                          <span className="text-blue-600 font-bold shrink-0">•</span>
+                          <HiCheckCircle className="text-blue-600 shrink-0 mt-0.5" size={18} />
                           <span>{req}</span>
                         </li>
                       ))}
@@ -478,7 +480,7 @@ function JobsPage() {
                     <ul className="space-y-2">
                       {selectedJob.responsibilities.map((resp, idx) => (
                         <li key={idx} className="flex gap-2 sm:gap-3 text-gray-700 text-sm sm:text-base">
-                          <span className="text-blue-600 font-bold shrink-0">•</span>
+                          <HiCheckCircle className="text-blue-600 shrink-0 mt-0.5" size={18} />
                           <span>{resp}</span>
                         </li>
                       ))}

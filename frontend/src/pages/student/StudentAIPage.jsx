@@ -1,5 +1,6 @@
 import RecommendedJobs from "../../components/dashboard/RecommendedJobs";
 import AISuggestions from "../../components/dashboard/AISuggestions";
+import OptimizedToolSelection from "../../components/dashboard/OptimizedToolSelection";
 
 function StudentAIPage() {
   return (
@@ -10,6 +11,7 @@ function StudentAIPage() {
       </div>
 
       <div className="grid lg:grid-cols-2 gap-6">
+        <OptimizedToolSelection />
         <RecommendedJobs />
         <AISuggestions />
       </div>

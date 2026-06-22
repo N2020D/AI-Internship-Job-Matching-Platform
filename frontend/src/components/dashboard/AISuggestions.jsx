@@ -1,3 +1,5 @@
+import { HiCheckCircle } from "react-icons/hi2";
+
 function AISuggestions() {
   const suggestions = [
     "Improve your resume summary.",
@@ -16,9 +18,10 @@ function AISuggestions() {
         {suggestions.map((item, index) => (
           <li
             key={index}
-            className="bg-green-50 p-3 rounded-lg"
+            className="bg-green-50 p-3 rounded-lg flex items-center gap-2 text-gray-700"
           >
-            ✅ {item}
+            <HiCheckCircle className="text-green-600 shrink-0" size={18} />
+            <span>{item}</span>
           </li>
         ))}
       </ul>

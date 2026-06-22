@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { HiPlus, HiTrash, HiXMark } from "react-icons/hi2";
 import {
   getProfile,
   updateProfile,
@@ -317,7 +318,7 @@ const removeProject = (index) => {
 
       window.dispatchEvent(new Event("student-profile-updated"));
 
-      navigate("/student/profile/StudentProfile");
+      navigate("/student/profile");
     } catch (error) {
       alert(error.response?.data?.message || "Update Failed");
     } finally {
@@ -636,7 +637,7 @@ className="text-red-600 font-bold"
 
 >
 
-×
+<HiXMark />
 
 </button>
 
@@ -771,7 +772,7 @@ className="text-red-600"
 
 >
 
-Remove
+<HiTrash className="inline-block" />
 
 </button>
 
@@ -944,6 +945,7 @@ className="mt-5 bg-blue-600 text-white px-6 py-3 rounded-lg"
 
 >
 
+<HiPlus className="inline-block mr-2" />
 Add Education
 
 </button>
@@ -996,7 +998,7 @@ className="text-red-600"
 
 >
 
-Delete
+<HiTrash className="inline-block" />
 
 </button>
 
@@ -1099,6 +1101,7 @@ className="mt-5 bg-blue-600 text-white px-6 py-3 rounded-lg"
 
 >
 
+<HiPlus className="inline-block mr-2" />
 Add Project
 
 </button>
@@ -1161,7 +1164,7 @@ className="text-red-600"
 
 >
 
-Delete
+<HiTrash className="inline-block" />
 
 </button>
 
@@ -1193,7 +1196,7 @@ Delete
 
         <button
           type="button"
-          onClick={() => navigate("/student/profile/StudentProfile")}
+          onClick={() => navigate("/student/profile")}
           disabled={saving}
           className="border border-gray-300 text-gray-700 px-8 py-3 rounded-lg hover:bg-gray-100"
         >

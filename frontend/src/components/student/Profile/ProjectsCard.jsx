@@ -1,6 +1,6 @@
-import { HiCodeBracket } from "react-icons/hi2";
+import { HiCodeBracket, HiPlus } from "react-icons/hi2";
 
-function ProjectsCard({ profile }) {
+function ProjectsCard({ profile, onEdit }) {
 
   const projects = profile.projects || [];
 
@@ -16,7 +16,12 @@ function ProjectsCard({ profile }) {
 
         </h2>
 
-        <button className="bg-blue-600 hover:bg-blue-700 text-white px-5 py-2 rounded-lg">
+        <button
+          type="button"
+          onClick={onEdit}
+          className="inline-flex items-center gap-2 bg-blue-600 hover:bg-blue-700 text-white px-5 py-2 rounded-lg"
+        >
+          <HiPlus />
 
           Add Project
 

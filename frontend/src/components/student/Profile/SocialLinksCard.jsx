@@ -1,6 +1,6 @@
 import {
   HiGlobeAlt,
-  HiLink,
+  HiPencilSquare,
 } from "react-icons/hi2";
 
 import {
@@ -8,7 +8,7 @@ import {
   FaLinkedin,
 } from "react-icons/fa";
 
-function SocialLinksCard({ profile }) {
+function SocialLinksCard({ profile, onEdit }) {
   return (
     <div className="bg-white rounded-xl shadow-lg p-6">
 
@@ -18,7 +18,12 @@ function SocialLinksCard({ profile }) {
           Social Links
         </h2>
 
-        <button className="bg-blue-600 hover:bg-blue-700 text-white px-5 py-2 rounded-lg">
+        <button
+          type="button"
+          onClick={onEdit}
+          className="inline-flex items-center gap-2 bg-blue-600 hover:bg-blue-700 text-white px-5 py-2 rounded-lg"
+        >
+          <HiPencilSquare />
           Edit Links
         </button>
 

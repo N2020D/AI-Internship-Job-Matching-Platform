@@ -5,6 +5,7 @@ import RecommendedJobs from "../../components/dashboard/RecommendedJobs";
 import RecentApplications from "../../components/dashboard/RecentApplications";
 import AISuggestions from "../../components/dashboard/AISuggestions";
 import { getProfile } from "../../services/studentService";
+import { getMyAppliedJobs } from "../../services/jobService";
 import { calculateProfileCompletion } from "../../utils/profileCompletion";
 
 import {
@@ -18,6 +19,7 @@ function StudentDashboard() {
     JSON.parse(localStorage.getItem("user")) || {};
 
   const [profile, setProfile] = useState(storedUser);
+  const [applications, setApplications] = useState([]);
 
   useEffect(() => {
     const loadProfile = async () => {
@@ -29,8 +31,19 @@ function StudentDashboard() {
         console.log(error);
       }
     };
+    const loadApplications = async () => {
+      try {
+        const data = await getMyAppliedJobs();
+
+        setApplications(data || []);
+      } catch (error) {
+        console.log(error);
+        setApplications([]);
+      }
+    };
 
     loadProfile();
+    loadApplications();
 
     window.addEventListener("student-profile-updated", loadProfile);
 
@@ -50,7 +63,7 @@ function StudentDashboard() {
 
         <DashboardCard
           title="Applications"
-          value="14"
+          value={applications.length}
           icon={<HiBriefcase />}
           color="border-blue-500"
         />
@@ -79,7 +92,7 @@ function StudentDashboard() {
 
       </div>
 
-      <RecentApplications />
+      <RecentApplications applications={applications.slice(0, 5)} />
 
     </div>
   );
