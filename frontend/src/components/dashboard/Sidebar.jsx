@@ -157,9 +157,9 @@ function Sidebar() {
   }
 
   return (
-    <aside className="w-64 bg-slate-800 text-white h-[calc(100vh-81px)] sticky top-20.25 flex flex-col shrink-0">
+    <aside className="w-64 bg-blue-950 text-white h-[calc(100vh-81px)] sticky top-20.25 flex flex-col shrink-0">
       <div className="p-6 border-b border-slate-700">
-        <h1 className="text-xl font-bold text-blue-400">
+        <h1 className="text-xl font-bold text-blue-100">
           AI Job Platform
         </h1>
       </div>
@@ -173,7 +173,7 @@ function Sidebar() {
               `flex items-center gap-3 p-3 rounded-lg mb-2 transition ${
                 isActive
                   ? "bg-blue-600"
-                  : "hover:bg-slate-700"
+                  : "hover:bg-slate-800"
               }`
             }
           >
