@@ -34,6 +34,17 @@ phone: {
     default: "",
 },
 
+company: {
+    type: String,
+    default: "",
+},
+
+status: {
+    type: String,
+    enum: ["Active", "Inactive", "Suspended", "Pending"],
+    default: "Active",
+},
+
 university: {
     type: String,
     default: "",
@@ -132,13 +143,38 @@ resume: {
     default: "",
 },
 
+// =======================
+// AI Resume Analysis
+// =======================
 
+atsScore: {
+    type: Number,
+    default: 0,
+},
 
+resumeSkills: [
+    {
+        type: String,
+    }
+],
 
+matchedSkills: [
+    {
+        type: String,
+    }
+],
 
-skills: [{
-    type: String,
-}],
+missingSkills: [
+    {
+        type: String,
+    }
+],
+
+recommendedRoles: [
+    {
+        type: String,
+    }
+],
 
 languages: [
     {

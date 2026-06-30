@@ -4,8 +4,7 @@ import WelcomeCard from "../../components/dashboard/WelcomeCard";
 import RecommendedJobs from "../../components/dashboard/RecommendedJobs";
 import RecentApplications from "../../components/dashboard/RecentApplications";
 import AISuggestions from "../../components/dashboard/AISuggestions";
-import { getProfile } from "../../services/studentService";
-import { getMyAppliedJobs } from "../../services/jobService";
+import { getDashboardSummary } from "../../services/studentService";
 import { calculateProfileCompletion } from "../../utils/profileCompletion";
 
 import {
@@ -22,33 +21,24 @@ function StudentDashboard() {
   const [applications, setApplications] = useState([]);
 
   useEffect(() => {
-    const loadProfile = async () => {
+    const loadDashboard = async () => {
       try {
-        const data = await getProfile();
+        const data = await getDashboardSummary();
 
-        setProfile(data);
-      } catch (error) {
-        console.log(error);
-      }
-    };
-    const loadApplications = async () => {
-      try {
-        const data = await getMyAppliedJobs();
-
-        setApplications(data || []);
+        setProfile(data.profile);
+        setApplications(data.applications || []);
       } catch (error) {
         console.log(error);
         setApplications([]);
       }
     };
 
-    loadProfile();
-    loadApplications();
+    loadDashboard();
 
-    window.addEventListener("student-profile-updated", loadProfile);
+    window.addEventListener("student-profile-updated", loadDashboard);
 
     return () => {
-      window.removeEventListener("student-profile-updated", loadProfile);
+      window.removeEventListener("student-profile-updated", loadDashboard);
     };
   }, []);
 
@@ -70,7 +60,7 @@ function StudentDashboard() {
 
         <DashboardCard
           title="Resume Score"
-          value="88%"
+          value={`${profile?.atsScore || 0}%`}
           icon={<HiDocumentText />}
           color="border-green-500"
         />
@@ -86,9 +76,13 @@ function StudentDashboard() {
 
       <div className="grid lg:grid-cols-2 gap-6">
 
-        <RecommendedJobs />
+        <RecommendedJobs
 
-        <AISuggestions />
+profile={profile}
+
+/>
+
+        <AISuggestions profile={profile} />
 
       </div>
 

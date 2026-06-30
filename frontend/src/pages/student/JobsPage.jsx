@@ -91,6 +91,7 @@ function JobsPage() {
       setApplying(jobId);
       await applyJob(jobId);
       setAppliedJobs([...appliedJobs, jobId]);
+      window.dispatchEvent(new Event("student-profile-updated"));
       alert("Applied successfully!");
     } catch (error) {
       alert(error.response?.data?.message || "Failed to apply");
@@ -108,6 +109,7 @@ function JobsPage() {
       setApplying(jobId);
       await withdrawApplication(jobId);
       setAppliedJobs(appliedJobs.filter(id => id !== jobId));
+      window.dispatchEvent(new Event("student-profile-updated"));
       alert("Application withdrawn");
     } catch (error) {
       alert(error.response?.data?.message || "Failed to withdraw");

@@ -58,11 +58,17 @@ function Sidebar() {
       icon: <HiClipboardDocumentList />,
       path: "/student/applications",
     },
+    
+
+
+
+
+
     {
-      name: "AI Matching",
-      icon: <HiSparkles />,
-      path: "/student/ai",
-    },
+  name: "AI Resume",
+  icon: <HiSparkles />,
+  path: "/student/ai-resume",
+},
     {
       name: "Notifications",
       icon: <HiBell />,

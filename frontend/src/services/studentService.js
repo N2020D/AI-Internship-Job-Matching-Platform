@@ -1,4 +1,5 @@
 import axios from "axios";
+import { getMyAppliedJobs } from "./jobService";
 
 const API = "http://localhost:5000/api/student";
 
@@ -21,6 +22,26 @@ export const getProfile = async () => {
 
   return response.data;
 
+};
+
+// ======================
+// GET DASHBOARD SUMMARY
+// ======================
+
+export const getDashboardSummary = async () => {
+  const [profile, applications] = await Promise.all([
+    getProfile(),
+    getMyAppliedJobs().catch(() => []),
+  ]);
+
+  return {
+    profile,
+    applications,
+    applicationsCount: applications.length,
+    savedJobs: profile.savedJobs || 0,
+    profileViews: profile.profileViews || 0,
+    resumeScore: profile.atsScore || 0,
+  };
 };
 
 // ======================
@@ -138,5 +159,32 @@ export const deleteProfilePhoto = async () => {
   );
 
   return response.data;
+
+};
+
+
+export const saveAIAnalysis = async (data) => {
+
+    const token = localStorage.getItem("token");
+
+    const response = await axios.post(
+
+        `${API}/ai-analysis`,
+
+        data,
+
+        {
+
+            headers:{
+
+                Authorization:`Bearer ${token}`
+
+            }
+
+        }
+
+    );
+
+    return response.data;
 
 };

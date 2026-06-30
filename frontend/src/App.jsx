@@ -49,6 +49,10 @@ import JobApplicantsPage from "./pages/recruiter/JobApplicantsPage";
 import RecruiterCompanyPage from "./pages/recruiter/RecruiterCompanyPage";
 import RecruiterAIPage from "./pages/recruiter/RecruiterAIPage";
 import RecruiterSettingsPage from "./pages/recruiter/RecruiterSettingsPage";
+import RecruiterNotificationsPage from "./pages/recruiter/RecruiterNotificationsPage";
+
+
+import AIResumeAnalyzer from "./pages/student/AIResumeAnalyzer";
 
 import ProtectedRoute from "./routes/ProtectedRoute";
 
@@ -149,6 +153,15 @@ function App() {
     element={<StudentAIPage />}
   />
 
+
+
+
+
+  <Route
+  path="/student/ai-resume"
+  element={<AIResumeAnalyzer />}
+/>
+
   <Route
     path="/student/notifications"
     element={<StudentNotificationsPage />}
@@ -212,6 +225,11 @@ function App() {
             path="/recruiter/settings"
             element={<RecruiterSettingsPage />}
           />
+
+          <Route
+            path="/recruiter/notifications"
+            element={<RecruiterNotificationsPage />}
+          />
         </Route>
 
         <Route
@@ -247,8 +265,8 @@ function App() {
           />
 
           <Route
-            path="/admin/analytics"
-            element={<AdminModulePage module="analytics" />}
+            path="/admin/applications"
+            element={<AdminModulePage module="applications" />}
           />
 
           <Route

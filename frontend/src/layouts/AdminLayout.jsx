@@ -7,7 +7,6 @@ import {
   HiCog6Tooth,
   HiDocumentText,
   HiShieldCheck,
-  HiSparkles,
   HiUserGroup,
 } from "react-icons/hi2";
 
@@ -16,8 +15,8 @@ const adminLinks = [
   { name: "Students", path: "/admin/students", icon: HiUserGroup },
   { name: "Recruiters", path: "/admin/recruiters", icon: HiBuildingOffice2 },
   { name: "Jobs", path: "/admin/jobs", icon: HiBriefcase },
+  { name: "Applications", path: "/admin/applications", icon: HiDocumentText },
   { name: "Reports", path: "/admin/reports", icon: HiDocumentText },
-  { name: "Analytics", path: "/admin/analytics", icon: HiSparkles },
   { name: "Settings", path: "/admin/settings", icon: HiCog6Tooth },
 ];
 

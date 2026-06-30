@@ -5,34 +5,39 @@ import {
   HiAcademicCap,
 } from "react-icons/hi2";
 
-function ProfileStats({ profile }) {
+function ProfileStats({ profile, dashboardData }) {
+
+  const applicationsCount = dashboardData?.applicationsCount ?? profile?.totalApplications ?? 0;
+  const savedJobsCount = dashboardData?.savedJobs ?? profile?.savedJobs ?? 0;
+  const profileViewsCount = dashboardData?.profileViews ?? profile?.profileViews ?? 0;
+  const resumeScore = dashboardData?.resumeScore ?? profile?.resumeScore ?? profile?.atsScore ?? 0;
 
   const stats = [
 
     {
       title: "Applications",
-      value: profile.totalApplications || 0,
+      value: applicationsCount,
       icon: <HiBriefcase className="text-3xl text-blue-600" />,
       color: "bg-blue-50",
     },
 
     {
       title: "Saved Jobs",
-      value: profile.savedJobs || 0,
+      value: savedJobsCount,
       icon: <HiDocumentText className="text-3xl text-green-600" />,
       color: "bg-green-50",
     },
 
     {
       title: "Profile Views",
-      value: profile.profileViews || 0,
+      value: profileViewsCount,
       icon: <HiUser className="text-3xl text-purple-600" />,
       color: "bg-purple-50",
     },
 
     {
       title: "Resume Score",
-      value: `${profile.resumeScore || 0}%`,
+      value: `${resumeScore}%`,
       icon: <HiAcademicCap className="text-3xl text-yellow-600" />,
       color: "bg-yellow-50",
     },

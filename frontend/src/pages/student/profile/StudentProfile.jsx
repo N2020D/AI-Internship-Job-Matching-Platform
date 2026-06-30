@@ -1,7 +1,7 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useCallback } from "react";
 import { useNavigate } from "react-router-dom";
 
-import { getProfile } from "../../../services/studentService";
+import { getDashboardSummary } from "../../../services/studentService";
 
 import ProfileHeader from "../../../components/student/Profile/ProfileHeader";
 import ProfileCompletion from "../../../components/student/Profile/ProfileCompletion";
@@ -22,30 +22,37 @@ function StudentProfile() {
   const goToEditProfile = () => navigate("/student/profile/edit");
 
   const [profile, setProfile] = useState(null);
+  const [dashboardData, setDashboardData] = useState(null);
 
   const [loading, setLoading] = useState(true);
 
-  useEffect(() => {
-
-    loadProfile();
-
+  const loadProfile = useCallback(async () => {
+    try {
+      const data = await getDashboardSummary();
+      setDashboardData(data);
+      setProfile(data.profile);
+    } catch (error) {
+      console.log(error);
+    } finally {
+      setLoading(false);
+    }
   }, []);
 
- 
+  useEffect(() => {
+    loadProfile();
+  }, [loadProfile]);
 
+  useEffect(() => {
+    const handleProfileUpdate = () => {
+      loadProfile();
+    };
 
-
-const loadProfile = async () => {
-  try {
-    const data = await getProfile();
-
-    setProfile(data);
-  } catch (error) {
-    console.log(error);
-  } finally {
-    setLoading(false);
-  }
-};
+    window.addEventListener("student-profile-updated", handleProfileUpdate);
+    
+    return () => {
+      window.removeEventListener("student-profile-updated", handleProfileUpdate);
+    };
+  }, [loadProfile]);
 
 
 
@@ -53,9 +60,11 @@ const loadProfile = async () => {
 
     return (
 
-      <div className="text-center text-xl">
-
-        Loading Profile...
+      <div className="min-h-screen flex items-center justify-center">
+        <div className="text-center">
+          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600 mx-auto mb-4"></div>
+          <p className="text-gray-600">Loading Profile...</p>
+        </div>
 
       </div>
 
@@ -86,6 +95,7 @@ const loadProfile = async () => {
       <ProfileStats
 
         profile={profile}
+        dashboardData={dashboardData}
 
       />
 

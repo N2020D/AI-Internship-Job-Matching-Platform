@@ -2,11 +2,13 @@ import {
   HiBell,
   HiMagnifyingGlass,
   HiArrowRightOnRectangle,
+  HiXMark,
 } from "react-icons/hi2";
 
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { getProfile } from "../../services/studentService";
+import { getMyAppliedJobs } from "../../services/jobService";
 
 const getProfileImageUrl = (profileImage) => {
   if (!profileImage) return "";
@@ -25,9 +27,19 @@ function Navbar() {
     JSON.parse(localStorage.getItem("user")) || {};
 
   const [profile, setProfile] = useState(storedUser);
+  const [searchOpen, setSearchOpen] = useState(false);
+  const [searchQuery, setSearchQuery] = useState("");
+  const [notificationCount, setNotificationCount] = useState(0);
 
   const role =
     localStorage.getItem("role");
+
+  const notificationPath =
+    role === "recruiter"
+      ? "/recruiter/notifications"
+      : role === "admin"
+      ? "/admin/dashboard"
+      : "/student/notifications";
 
   const profileImageUrl = getProfileImageUrl(profile.profileImage);
 
@@ -37,6 +49,29 @@ function Navbar() {
         const data = await getProfile();
 
         setProfile(data);
+        calculateNotifications(data);
+      } catch (error) {
+        console.log(error);
+      }
+    };
+
+    const calculateNotifications = async (profileData) => {
+      try {
+        const appliedJobs = await getMyAppliedJobs();
+        const profileCompletion = calculateProfileCompletion(profileData);
+        
+        let count = 0;
+        
+        // Add 1 if profile incomplete
+        if (profileCompletion < 100) count++;
+        
+        // Add 1 if no resume
+        if (!profileData?.resume) count++;
+        
+        // Add 1 if missing skills
+        if (!profileData?.missingSkills || profileData.missingSkills.length > 0) count++;
+
+        setNotificationCount(count);
       } catch (error) {
         console.log(error);
       }
@@ -50,6 +85,29 @@ function Navbar() {
       window.removeEventListener("student-profile-updated", loadProfile);
     };
   }, []);
+
+  const calculateProfileCompletion = (profile) => {
+    let completed = 0;
+    const fields = [
+      "name", "email", "phone", "university", "degree",
+      "bio", "profileImage", "resume", "linkedin"
+    ];
+
+    fields.forEach(field => {
+      if (profile?.[field]) completed++;
+    });
+
+    return Math.round((completed / fields.length) * 100);
+  };
+
+  const handleSearch = (e) => {
+    e.preventDefault();
+    if (searchQuery.trim()) {
+      navigate(`/student/jobs?search=${encodeURIComponent(searchQuery)}`);
+      setSearchOpen(false);
+      setSearchQuery("");
+    }
+  };
 
   const logout = () => {
     localStorage.clear();
@@ -83,29 +141,55 @@ function Navbar() {
 
         {/* Search */}
 
-        <div className="hidden md:flex items-center bg-gray-100 rounded-lg px-4 py-2 w-96">
-
-          <HiMagnifyingGlass />
-
-          <input
-            type="text"
-            placeholder="Search..."
-            className="bg-transparent outline-none w-full ml-2"
-          />
-
+        <div className="hidden md:flex relative">
+          {searchOpen ? (
+            <form onSubmit={handleSearch} className="flex items-center gap-2">
+              <input
+                type="text"
+                autoFocus
+                value={searchQuery}
+                onChange={(e) => setSearchQuery(e.target.value)}
+                placeholder="Search jobs..."
+                className="bg-gray-100 px-4 py-2 rounded-lg outline-none focus:bg-gray-50 w-72 transition-colors"
+              />
+              <button
+                type="button"
+                onClick={() => {
+                  setSearchOpen(false);
+                  setSearchQuery("");
+                }}
+                className="p-2 hover:bg-gray-100 rounded-lg transition-colors"
+              >
+                <HiXMark className="text-gray-600" />
+              </button>
+            </form>
+          ) : (
+            <button
+              onClick={() => setSearchOpen(true)}
+              className="flex items-center gap-2 bg-gray-100 hover:bg-gray-200 px-4 py-2 rounded-lg transition-colors"
+            >
+              <HiMagnifyingGlass className="text-gray-600" />
+              <span className="text-gray-600 text-sm">Search jobs...</span>
+            </button>
+          )}
         </div>
 
         {/* Right */}
 
         <div className="flex items-center gap-5">
 
-          <button className="relative">
+          <button 
+            onClick={() => navigate(notificationPath)}
+            className="relative hover:bg-gray-100 p-2 rounded-lg transition-colors"
+          >
 
             <HiBell className="text-2xl text-gray-600" />
 
-            <span className="absolute -top-1 -right-1 bg-red-500 text-white rounded-full px-1 text-xs">
-              3
-            </span>
+            {notificationCount > 0 && (
+              <span className="absolute -top-1 -right-1 bg-red-500 text-white rounded-full w-5 h-5 text-xs flex items-center justify-center font-semibold">
+                {notificationCount}
+              </span>
+            )}
 
           </button>
 
@@ -125,7 +209,10 @@ function Navbar() {
 
           </div>
 
-          <div className="w-12 h-12 rounded-full bg-blue-600 text-white flex items-center justify-center font-bold text-lg overflow-hidden">
+          <button 
+            onClick={() => navigate("/student/profile")}
+            className="w-12 h-12 rounded-full bg-blue-600 text-white flex items-center justify-center font-bold text-lg overflow-hidden hover:ring-2 hover:ring-blue-400 transition-all"
+          >
 
             {profileImageUrl ? (
               <img
@@ -139,17 +226,17 @@ function Navbar() {
                 ?.toUpperCase()
             )}
 
-          </div>
+          </button>
 
           <button
 
             onClick={logout}
 
-            className="text-red-600 hover:text-red-700"
+            className="text-red-600 hover:text-red-700 hover:bg-red-50 p-2 rounded-lg transition-colors"
 
           >
 
-            <HiArrowRightOnRectangle className="text-3xl" />
+            <HiArrowRightOnRectangle className="text-2xl" />
 
           </button>
 

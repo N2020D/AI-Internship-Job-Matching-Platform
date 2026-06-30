@@ -217,10 +217,55 @@ const updateJobStatus = async (req, res) => {
   }
 };
 
+
+
+const saveAIAnalysis = async (req, res) => {
+
+  try {
+
+    const {
+
+      atsScore,
+
+      resumeSkills,
+
+      matchedSkills,
+
+      missingSkills,
+
+      recommendedRoles,
+
+    } = req.body;
+
+    const student = await User.findById(req.user.id);
+
+    student.atsScore = atsScore;
+    student.resumeSkills = resumeSkills;
+    student.matchedSkills = matchedSkills;
+    student.missingSkills = missingSkills;
+    student.recommendedRoles = recommendedRoles;
+
+    await student.save();
+
+    res.json({
+      message: "AI Analysis Saved",
+    });
+
+  } catch (error) {
+
+    res.status(500).json({
+      message: error.message,
+    });
+
+  }
+
+};
+
 module.exports = {
   getProfile,
   updateProfile,
   getMyJobs,
+  saveAIAnalysis,
   getJobApplicants,
   getJobStats,
   postJob,

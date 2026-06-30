@@ -33,6 +33,7 @@ function ApplicationsPage() {
       await withdrawApplication(jobId);
       setJobs(jobs.filter((j) => j._id !== jobId));
       if (selectedJob?._id === jobId) setSelectedJob(null);
+      window.dispatchEvent(new Event("student-profile-updated"));
       alert("Application withdrawn");
     } catch (err) {
       alert(err.response?.data?.message || "Failed to withdraw");

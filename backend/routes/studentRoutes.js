@@ -1,5 +1,5 @@
 const express = require("express");
-const upload = require("../middleware/uploadResume");
+const upload = require("../middleware/uploadAIResume");
 const uploadProfileImage = require("../middleware/uploadProfileImage");
 
 const router = express.Router();
@@ -12,7 +12,9 @@ const {
     uploadResume,
     uploadProfileImage: uploadProfileImageController,
     deleteProfileImage,
-    deleteResume
+    deleteResume,
+    saveAIAnalysis,
+    
 } = require("../controllers/studentController");
 
 const {
@@ -82,6 +84,16 @@ router.delete(
     protect,
 
     deleteResume
+
+);
+
+router.post(
+
+    "/ai-analysis",
+
+    protect,
+
+    saveAIAnalysis
 
 );
 

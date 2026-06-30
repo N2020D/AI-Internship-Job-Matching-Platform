@@ -12,6 +12,8 @@ const deleteProfileImageFile = (filename) => {
   }
 };
 
+
+
 // ======================
 // GET PROFILE
 // ======================
@@ -168,11 +170,68 @@ const deleteResume = async (req, res) => {
   }
 };
 
+
+// ======================
+// SAVE AI ANALYSIS
+// ======================
+
+const saveAIAnalysis = async (req, res) => {
+  try {
+
+    const {
+
+      atsScore,
+
+      resumeSkills,
+
+      matchedSkills,
+
+      missingSkills,
+
+      recommendedRoles,
+
+    } = req.body;
+
+    const student = await User.findById(req.user.id);
+
+    if (!student) {
+      return res.status(404).json({
+        message: "Student not found",
+      });
+    }
+
+    student.atsScore = atsScore || 0;
+
+    student.resumeSkills = resumeSkills || [];
+
+    student.matchedSkills = matchedSkills || [];
+
+    student.missingSkills = missingSkills || [];
+
+    student.recommendedRoles = recommendedRoles || [];
+
+    await student.save();
+
+    res.status(200).json({
+      message: "AI analysis saved successfully",
+      student,
+    });
+
+  } catch (error) {
+
+    res.status(500).json({
+      message: error.message,
+    });
+
+  }
+};
+
 module.exports = {
-  getProfile,
+   getProfile,
   updateProfile,
   uploadResume,
   uploadProfileImage,
   deleteProfileImage,
   deleteResume,
+  saveAIAnalysis,
 };

@@ -7,6 +7,9 @@ const authRoutes = require("./routes/authRoutes");
 const studentRoutes = require("./routes/studentRoutes");
 const jobRoutes = require("./routes/jobRoutes");
 const recruiterRoutes = require("./routes/recruiterRoutes");
+const adminRoutes = require("./routes/adminRoutes");
+
+const aiRoutes = require("./routes/aiRoutes");
 
 dotenv.config();
 
@@ -22,6 +25,8 @@ app.use("/api/auth", authRoutes);
 app.use("/api/student", studentRoutes);
 app.use("/api/recruiter", recruiterRoutes);
 app.use("/api/jobs", jobRoutes);
+app.use("/api/admin", adminRoutes);
+app.use("/api/ai", aiRoutes);
 
 
 
